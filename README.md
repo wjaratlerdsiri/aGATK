@@ -1,6 +1,6 @@
 # Assembly-based Genome Analysis Toolkit (aGATK)
 
-![](aGATK-workflow-v2.png)
+![](/data/aGATK-workflow-v2.png)
 
 # Main steps
 
