@@ -40,10 +40,10 @@ For each individual, target sequences (exons) are ordered based on exon numbers 
 
 ## Cohort-wise multiple sequence alignment per gene:
 
-This step consists of consolidating each of gene sequences across multiple samples in order to generate per-gene MSA within a cohort. Using MAFFT v7.402 (Katoh, Kuma, Toh, & Miyata, 2005), this MSA per gene is locally aligned with a corresponding reference sequence from the CCDS database for quality control and protein translation purposes in the cohort analysis in the following steps. The script `aGATK_mafft-0.1dev.py` written in Python programming languages can be run per gene in this step as follows: 
+This step consists of consolidating each of gene sequences across multiple samples in order to generate per-gene MSA within a cohort. Using MAFFT v7.505 and following an installation manual (Katoh, Kuma, Toh, & Miyata, 2005), this MSA per gene is locally aligned with a corresponding reference sequence from the CCDS database for quality control and protein translation purposes in the cohort analysis in the following steps. The script `aGATK_mafft.py` written in Python programming languages can be run per gene in this step as follows: 
 
 ```
-python aGATK_mafft-0.1dev.py --fasta $MSA --output $OUT
+python aGATK_mafft.py --fasta $MSA --output $OUT
 ```
 
 ## Multiple sequence alignment and orientation quality controls:
