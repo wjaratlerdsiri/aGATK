@@ -48,12 +48,12 @@ python aGATK_mafft.py --fasta $MSA --output $OUT
 
 ## Multiple sequence alignment and orientation quality controls:
 
-The next step is to quality check per-gene MSA datasets based on overall nucleotide diversity (mean p-distance) and sequence orientation relative to their hg38 reference sequences, using MEGA-CC v7.0.14 (Kumar et al., 2012) and LASTZ v1.04 programs (Harris, 2007), respectively. There are the two following Python scripts used for these analyses:
+The next step is to quality check per-gene MSA datasets based on overall nucleotide diversity (mean p-distance) and sequence orientation relative to their hg38 reference sequences, using MEGA-CC v11.0.13 (Kumar et al., 2012) and LASTZ v1.04 programs (Harris, 2007), respectively. There are the two following Python scripts used for these analyses:
 
 ```
-python aGATK_megacc-0.1dev.py --target $MSA --output $OUT
+python aGATK_megacc.py --target $MSA --output $OUT
 
-python aGATK_lastz-0.1dev.py --target $MSA --query $MSA --output $OUT --identity 90
+python aGATK_lastz.py --target $MSA --query $MSA --output $OUT --identity 90
 ```
 
 For each gene of interest, this step could be followed by strand correction, removal of gaps and sequence alignment of genes less than 100 bp. We chose only genes with >90% sequence identity among individuals studied for further analyses after repeating the above-mentioned local alignment step.
