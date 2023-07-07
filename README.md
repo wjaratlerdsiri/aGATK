@@ -79,6 +79,6 @@ This step is mentioned in details in the manuscript.
 
 We perform de novo genome assembly as an alternative to short read mapping implemented in the classical GATK pipeline or as an reference genome-free analysis of short read sequencing. Despite WGS coverage of ~41X assembled in this study, target sequences of interest in some individuals are challenging to obtain, for example, 745 genes partly observed among 37 genomes analysed in SI10.
 
-For the current workflow of aGATK, quality scrutiny of MSA of extracted targets is done at the gene level (2,770 genes filtered out). Future release of the pipeline might be better if sequence quality could be performed earlier at the exon level prior to concatenation into the gene level. This might conserve more target genes included in the selection test.
+For the current workflow of aGATK, quality scrutiny of MSA of extracted targets is done at the gene level (2,770 genes filtered out).
 
 
