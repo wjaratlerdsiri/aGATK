@@ -8,11 +8,11 @@ We begin by generating an individual’s genome draft and extracting sample-spec
 
 ## Perform de novo genome assembly:
 
-For each genome, filtered FASTQ reads generated in Section 2.3 were assembled with pair information using ABySS v2.0.2 (Simpson et al., 2009). Default paired-end sequencing parameters for human genome assemblies were set with k-mer equal to 96 and five pairs minimally required to construct a contig. Subsequent assembled scaffolds in a FASTA format were chosen if larger than one kb.
+For each genome, filtered FASTQ reads generated in Supplementary Information 2.3 were assembled with pair information using ABySS v2.0.2 (Simpson et al., 2009; Supplementary Information). Default paired-end sequencing parameters for human genome assemblies were set with k-mer equal to 96 and five pairs minimally required to construct a contig. Subsequent assembled scaffolds in a FASTA format were chosen if larger than one kb.
 
 ## Locally align to sample-specific references:
 
-The sequence assembly per sample is treated as a reference genome. For each individual, nucleotide sequences of targeted regions of interest, consensus coding sequences (CCDS; release 20) described in SI10 are locally aligned in a BAM format against the sample-specific reference using the BWA-MEM algorithm, fast and accurate local alignment (Li & Durbin, 2009). The BAM alignment is then sorted and indexed.
+The sequence assembly per sample is treated as a reference genome. For each individual, nucleotide sequences of targeted regions of interest, consensus coding sequences (CCDS; release 20) described in SI10 are locally aligned in a BAM format against the sample-specific reference using the BWA-MEM algorithm, fast and accurate local alignment (Li & Durbin, 2009; Supplementary Information). The BAM alignment is then sorted and indexed.
 
 ```
 bwa mem -t 16 $REFERENCE CCDSv20.GRCh38.exon.nt.ALL.fasta \
@@ -26,7 +26,7 @@ samtools index $REFERENCE.CCDSv20.GRCh38.exon.sort.bam
 
 ## Extract sample-specific target sequences:
 
-At the individual level, we extract genomic coordinates and their subsequent nucleotide sequences from the BAM alignment between genome assembly and exon database using bedtools v2.26.0 (Quinlan & Hall, 2010). Targeted exon sequences aligned with each genome assembly are removed if soft-clipped.
+At the individual level, we extract genomic coordinates and their subsequent nucleotide sequences from the BAM alignment between genome assembly and exon database using bedtools v2.26.0 (Quinlan & Hall, 2010; Supplementary Information). Targeted exon sequences aligned with each genome assembly are removed if soft-clipped.
 
 ```
 bedtools bamtobed -i $BAM -cigar > $BED
@@ -48,7 +48,7 @@ python aGATK_mafft.py --fasta $MSA --output $OUT
 
 ## Multiple sequence alignment and orientation quality controls:
 
-The next step is to quality check per-gene MSA datasets based on overall nucleotide diversity (mean p-distance) and sequence orientation relative to their hg38 reference sequences, using MEGA-CC v11.0.13 (Kumar et al., 2012) and LASTZ v1.04 programs (Harris, 2007), respectively. The MEGA program may be buggy with Apple M1 chip and needs an input file in data/ directory. There are the two following Python scripts used for these analyses:
+The next step is to quality check per-gene MSA datasets based on overall nucleotide diversity (mean p-distance) and sequence orientation relative to their hg38 reference sequences, using MEGA-CC v11.0.13 (Kumar et al., 2012; Supplementary Information) and LASTZ v1.04 programs (Harris, 2007; Supplementary Information), respectively. The MEGA program may be buggy with Apple M1 chip and needs an input file in data/ directory. There are the two following Python scripts used for these analyses:
 
 ```
 python aGATK_megacc.py --target $MSA --output $OUT
@@ -60,7 +60,7 @@ For each gene of interest, this step could be followed by strand correction, rem
 
 ## Perform amino acid-guided alignment:
 
-To facilitate amino acid based selection tests explained in SI10, amino acid-guided alignment of each per-gene MSA is conducted using the transAlign program (Bininda-Emonds, 2005). The step would provide accurate MSA of intact open reading frames within a cohort relative to reference coding sequences, and sequence alignment based on amino acids is often superior to that obtained directly from nucleotides. Overall nucleotide diversity is recalculated, with the MSA greater than 90% identity retained.
+To facilitate amino acid based selection tests explained in SI10, amino acid-guided alignment of each per-gene MSA is conducted using the transAlign program (Bininda-Emonds, 2005; Supplementary Information). The step would provide accurate MSA of intact open reading frames within a cohort relative to reference coding sequences, and sequence alignment based on amino acids is often superior to that obtained directly from nucleotides. Overall nucleotide diversity is recalculated, with the MSA greater than 90% identity retained.
 
 ```
 perl transAlign.pl –d$MSA -if -v -pclustalw2 -ra
@@ -72,12 +72,12 @@ Formatting data for selection tests generally involves slight differences from t
 
 ## Test for positive selection:
 
-This step is mentioned in details in the manuscript.
+This step is mentioned in detail in the manuscript.
 
 
 # Caveats
 
-We perform de novo genome assembly as an alternative to short read mapping implemented in the classical GATK pipeline or as an reference genome-free analysis of short read sequencing. Despite WGS coverage of ~41X assembled in this study, target sequences of interest in some individuals are challenging to obtain, for example, 745 genes partly observed among 37 genomes analysed in SI10.
+We perform de novo genome assembly as an alternative to short read mapping implemented in the classical GATK pipeline or as an reference genome-free analysis of short read sequencing. Despite WGS coverage of ~41X assembled in this study, target sequences of interest in some individuals are challenging to obtain, for example, 745 genes partly observed among 37 genomes analysed in Supplementary Information 10.
 
 For the current workflow of aGATK, quality scrutiny of MSA of extracted targets is done at the gene level (2,770 genes filtered out).
 
